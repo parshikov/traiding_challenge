@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Interfaces\Currencies;
 use App\Models\Stock;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Console\Command;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Cache;
@@ -42,6 +41,7 @@ class ReceiveDataCommand extends Command
         collect($responses)->each(function ($response) {
             if ($response->getStatusCode() !== 200) {
                 $this->error('Error with API');
+
                 // Problem after retrying
                 // It is better to report the problem
                 // but don stop the process
@@ -51,8 +51,9 @@ class ReceiveDataCommand extends Command
 
             $data = json_decode($response->getBody()->getContents(), true);
 
-            if (!$data) {
+            if (! $data) {
                 $this->error('Error with API');
+
                 // Detect problems with api
                 // For example with api limit exceeding
                 // It is better to report the problem
@@ -62,8 +63,9 @@ class ReceiveDataCommand extends Command
 
             $data = $data['Realtime Currency Exchange Rate'] ?? null;
 
-            if (!$data) {
+            if (! $data) {
                 $this->error('Error with format');
+
                 return;
             }
 

@@ -32,7 +32,7 @@ class ReceiveDataCommandTest extends TestCase
 }
 JSON
             );
-        };
+        }
         $command->handle();
 
         $this->assertDatabaseCount('stocks', count(Currencies::CURRENCIES));

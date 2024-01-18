@@ -27,18 +27,13 @@ class ControllerTest extends TestCase
     public static function correctStockTrendProvider(): array
     {
         return [
-            'positive' => [200, 100, '{"trend":100}',],
-            'negative' => [100, 200, '{"trend":-50}',],
-            'zero' => [100, 100, '{"trend":0}',],
+            'positive' => [200, 100, '{"trend":100}'],
+            'negative' => [100, 200, '{"trend":-50}'],
+            'zero' => [100, 100, '{"trend":0}'],
         ];
     }
 
     /**
-     * @param $last
-     * @param $prev
-     * @param $expected
-     *
-     * @return void
      * @dataProvider correctStockTrendProvider
      */
     public function testCorrectTrend(int $last, int $prev, string $expected): void

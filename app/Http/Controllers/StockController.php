@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Stock;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 class StockController extends Controller
@@ -21,7 +20,7 @@ class StockController extends Controller
             60,
             // may be it worth to check both pairs like USD:CHF and CHF:USD
             // but here we make only exactly requested pair
-            fn() => Stock::query()->where('name', $stock)
+            fn () => Stock::query()->where('name', $stock)
                 ->latest('created_at')->firstOrFail(),
         );
 

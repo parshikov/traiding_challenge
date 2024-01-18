@@ -6,13 +6,21 @@ namespace App\Interfaces;
 interface Currencies
 {
     public const USDJPY = 'USD:JPY';
+
     public const GBPJPY = 'GBP:JPY';
+
     public const AUDJPY = 'AUD:JPY';
+
     public const NZDJPY = 'NZD:JPY';
+
     public const CADJPY = 'CAD:JPY';
+
     public const CHFJPY = 'CHF:JPY';
+
     public const EURUSD = 'EUR:USD';
+
     public const GBPUSD = 'GBP:USD';
+
     public const AUDUSD = 'AUD:USD';
 
     public const CURRENCIES = [
