@@ -1,0 +1,32 @@
+version: "3.5"
+
+services:
+  php:
+    build:
+      context: ./.docker
+      args:
+        PHP_VER: '8.2'
+    environment:
+      XDEBUG_MODE: coverage
+    volumes:
+      - .:/var/www
+    restart: always
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./:/var/www:ro
+      - ./.docker/conf:/etc/nginx/conf.d:ro
+    ports:
+      - 80:80
+    restart: unless-stopped
+    depends_on:
+      - php
+  pgsql:
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: $DB_USERNAME
+      POSTGRES_DB: $DB_DATABASE
+      POSTGRES_PASSWORD: $DB_PASSWORD
+    restart: unless-stopped
