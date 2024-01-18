@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/stock/{stock}', \App\Http\Controllers\StockController::class.'@stock');
+Route::get('/trend/{stock}', \App\Http\Controllers\StockController::class.'@trend');

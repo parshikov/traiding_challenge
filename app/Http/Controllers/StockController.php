@@ -28,4 +28,27 @@ class StockController extends Controller
         return response()
             ->json($result);
     }
+
+    public function trend(Request $request, string $stock): JsonResponse
+    {
+        $stock = strtoupper($stock);
+        $data = Stock::where('name', $stock)->orderBy('created_at', 'desc')->limit(2)->get();
+
+        if ($data->count() < 2) {
+            return response()
+                ->json([
+                    'message' => 'Not enough data',
+                ]);
+        }
+
+        /** @var Stock $last */
+        /** @var Stock $previous */
+        [$last, $previous] = $data;
+        // result depends on the time of creating the data
+        // in real life it must be calculated paying attention to the time interval between the prices
+        $trend = round(($last->price - $previous->price) / $previous->price * 100, 4);
+
+        return response()
+            ->json(['trend' => $trend]);
+    }
 }
